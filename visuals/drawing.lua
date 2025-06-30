@@ -13,24 +13,6 @@ local function apply_props(inst, props)
     end
 end
 
-local function create_children(parent, children_specs)
-    local children_map = {}
-    for _, spec in ipairs(children_specs or {}) do
-        local child_inst = Instance.new(spec.class)
-        apply_props(child_inst, spec.props)
-        child_inst.Parent = parent
-
-        if spec.name then
-            children_map[spec.name] = child_inst
-        end
-
-        if spec.children then
-            create_children(child_inst, spec.children)
-        end
-    end
-    return children_map
-end
-
 function drawing.new(class_name, props, children)
     local self = setmetatable({}, drawing)
     self.instance = Instance.new(class_name)
